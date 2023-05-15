@@ -12,6 +12,9 @@
         "sstream": "c",
         "stdexcept": "c",
         "system_error": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "graphics.h": "c",
+        "limits.h": "c",
+        "windows.h": "c"
     }
 }
