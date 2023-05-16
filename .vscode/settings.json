@@ -1,20 +1,7 @@
 {
     "files.associations": {
-        "genlib.h": "c",
-        "stdio.h": "c",
-        "simpio.h": "c",
-        "*.tcc": "c",
-        "string": "c",
-        "string_view": "c",
-        "fstream": "c",
-        "istream": "c",
-        "ostream": "c",
-        "sstream": "c",
-        "stdexcept": "c",
-        "system_error": "c",
-        "typeinfo": "c",
-        "graphics.h": "c",
-        "limits.h": "c",
-        "windows.h": "c"
+        "stddef.h": "c",
+        "caltools.h": "c",
+        "genlib.h": "c"
     }
 }

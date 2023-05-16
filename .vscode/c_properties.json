@@ -5,8 +5,7 @@
             "includePath": [
                 "C:/mingw64/include",
                 "${workspaceFolder}/include",
-                "D:/Project/The_Art_and_Science_of_C/include",
-                "${workspaceFolder}/WinBGIm-64/libbgi/include/bgi"
+                "D:/Project/The_Art_and_Science_of_C/include"
             ],
             "defines": [
                 "_DEBUG",
