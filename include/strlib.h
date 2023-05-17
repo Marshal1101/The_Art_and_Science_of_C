@@ -163,7 +163,6 @@ int FindChar(char ch, string text, int start);
 * function searches for the string str and returns the 
 * first index at which it appears or –1 if no match is
 * found.
-
 */
 
 int FindString(string str, string text, int start);
@@ -179,6 +178,7 @@ int FindString(string str, string text, int start);
 */
 
 string ConvertToLowerCase(string s);
+string ConvertToUpperCase(string s);
 
 /* Section 5 -- Functions for converting numbers to strings */
 /*

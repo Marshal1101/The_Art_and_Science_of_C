@@ -10,6 +10,25 @@
 #include "genlib.h"
 
 /**
+ * @brief Type: WeekdayT
+ * 
+ * Days of the week are represented by the integers 0-6.
+ */
+typedef enum {
+    Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+} weekdayT;
+
+/**
+ * @brief Type: MonthT
+ * Months of the year are indentified by the integers 1-12.
+ * because this numeric representation for months is in
+ * common use, no special constants are defined.
+*/
+typedef enum {
+    January = 1, February, March, April, May, June, July, August, September, October, November, December
+} monthT;
+
+/**
  * @brief Returns how long days of the month in year.
  * 
  * @param month 

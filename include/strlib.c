@@ -60,7 +60,7 @@ char IthChar(string s, int i)
     if (s == NULL) Error("NULL string passed to IthChar");
     len = strlen(s);
     if (i < 0 || i > len) {
-        Error("Index outside of string range in IthChar");
+        Error("Index %d is outside of string range in IthChar", i);
     }
     return(s[i]);
 }

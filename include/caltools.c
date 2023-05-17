@@ -8,25 +8,8 @@
 #include "strlib.h"
 #include "caltools.h"
 
-/**
- * @brief Constants:
- * 
- * Days of the week are represented by the integers 0-6.
- * Months of the year are indentified by the integers 1-12.
- * because this numeric representation for months is in
- * common use, no special constants are defined.
- */
-
-#define Sunday      0
-#define Monday      1
-#define Tuesday     2
-#define Wednesday   3
-#define Thursday    4
-#define Friday      5
-#define Saturday    6
-
 /* Internal Functions */
-void IndentFirstLine(int weekday);
+void IndentFirstLine(weekdayT weekday);
 
 /**
  * Function: MonthDays
@@ -60,7 +43,8 @@ int MonthDays(int month, int year)
  */
 int FirstDayOfMonth(int month, int year)
 {
-    int weekday, i;
+    int i;
+    weekdayT weekday;
 
     weekday = Monday;
     if (year >= 1900) {
@@ -131,7 +115,8 @@ bool IsLeapYear(int year)
 
 void PrintCalendarMonth(int month, int year)
 {
-    int weekday, nDays, day;
+    int nDays, day;
+    weekdayT weekday;
 
     printf("    %s %s %d\n", MonthName(month), (year > 0 ? "AD" : "BC"), (year > 0 ? year : -year+1));
     printf(" Su Mo Tu We Th Fr Sa\n");
@@ -154,7 +139,7 @@ void PrintCalendarMonth(int month, int year)
  * by printing enough blank spaces to get to the position
  * on the line corresponding to weekday.
  */
-void IndentFirstLine(int weekday)
+void IndentFirstLine(weekdayT weekday)
 {
     int i;
 
