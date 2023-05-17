@@ -1,6 +1,6 @@
 # Build Library File
-    gcc -c genlib.c simpio.c strlib.c random.c
-    ar r [lib***].a genlib.o simpio.o strlib.o random.o
+    gcc -c caltools.c genlib.c random.c simpio.c strlib.c
+    ar r libmy.a caltools.o genlib.o random.o simpio.o strlib.o 
     ar s [lib***].a
 
 # Build Execution File

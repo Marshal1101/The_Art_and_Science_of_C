@@ -2,6 +2,16 @@
     "files.associations": {
         "stddef.h": "c",
         "caltools.h": "c",
-        "genlib.h": "c"
+        "genlib.h": "c",
+        "cstddef": "c",
+        "string": "c",
+        "optional": "c",
+        "limits": "c",
+        "memory": "c",
+        "new": "c",
+        "functional": "c",
+        "type_traits": "c",
+        "cctype": "c",
+        "strlib.h": "c"
     }
 }
