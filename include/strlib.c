@@ -82,7 +82,7 @@ string SubString(string s, int p1, int p2)
     return (result);
 }
 
-string CharToStirng (char ch)
+string CharToString(char ch)
 {
     string result;
 
@@ -130,7 +130,7 @@ int StringCompare (string s1, string s2)
 int FindChar(char ch, string text, int start)
 {
     char *cptr;
-    
+
     if (text == NULL) Error("NULL string passed to FindChar");
     if (start < 0) start = 0;
     if (start > strlen(text)) return (-1);
@@ -193,10 +193,10 @@ int StringToInteger(string s)
 {
     int result;
     char dummy;
-    if (s = NULL) {
+    if (s == NULL) {
         Error("NULL string passed to StringToInteger");
     }
-    if (sscanf(s, " %d %c", &result, &dummy) != 1) {
+    if (sscanf(s, "%d%c", &result, &dummy) != 1) {
         Error("StringToInteger called on illegal number %s", s);
     }
     return (result);
@@ -216,7 +216,7 @@ double StringToReal(string s)
     char dummy;
 
     if (s == NULL) Error("NULL string passed to StrinToReal");
-    if (sscanf(s, " %lg %c", &result, &dummy) != 1) {
+    if (sscanf(s, "%lg%c", &result, &dummy) != 1) {
         Error("StringToReal called on illegal number %s", s);
     }
     return (result);
