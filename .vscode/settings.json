@@ -12,6 +12,17 @@
         "functional": "c",
         "type_traits": "c",
         "cctype": "c",
-        "strlib.h": "c"
+        "strlib.h": "c",
+        "*.tcc": "c",
+        "string_view": "c",
+        "fstream": "c",
+        "istream": "c",
+        "ostream": "c",
+        "sstream": "c",
+        "stdexcept": "c",
+        "system_error": "c",
+        "typeinfo": "c",
+        "ctype.h": "c",
+        "scanner.h": "c"
     }
 }

@@ -1,7 +1,8 @@
 # Build Library File
-    gcc -c caltools.c genlib.c random.c simpio.c strlib.c
-    ar r libmy.a caltools.o genlib.o random.o simpio.o strlib.o 
-    ar s [lib***].a
+    path: ./include (at this)
+    gcc -c genlib.c random.c simpio.c strlib.c caltools.c scanner.c labelseq.c fill.c
+    ar r libmy.a genlib.o random.o simpio.o strlib.o caltools.o scanner.o labelseq.o fill.o
+    ar s libmy.a
 
 # Build Execution File
     gcc -o [newName] [filename.c] -lmy -Linclude -Iinclude
