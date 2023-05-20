@@ -1,7 +1,7 @@
 # Build Library File
     path: ./include (at this)
-    gcc -c genlib.c random.c simpio.c strlib.c caltools.c scanner.c labelseq.c fill.c
-    ar r libmy.a genlib.o random.o simpio.o strlib.o caltools.o scanner.o labelseq.o fill.o
+    gcc -c genlib.c random.c simpio.c strlib.c caltools.c scanner.c labelseq.c fill.c hist.c
+    ar r libmy.a genlib.o random.o simpio.o strlib.o caltools.o scanner.o labelseq.o fill.o hist.o
     ar s libmy.a
 
 # Build Execution File
