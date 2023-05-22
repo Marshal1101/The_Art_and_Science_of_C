@@ -10,6 +10,9 @@
 #include "genlib.h"
 #include "random.h"
 
+static bool randTwice;
+
+
 /*
 * Function: Randomize
 * ----------------------------
@@ -23,6 +26,7 @@
 void Randomize(void)
 {
     srand((int) time(NULL));
+    randTwice = FALSE;
 }
 
 /*
@@ -40,6 +44,8 @@ int RandomInteger(int low, int high)
 {
     int k;
     double d;
+
+    if (randTwice) rand();
     d = (double) rand() / ((double) RAND_MAX + 1);
     k = (int) (d * (high - low + 1));
     return (low + k);
@@ -56,6 +62,7 @@ double RandomReal(double low, double high)
 {
     double d;
 
+    if (randTwice) rand();
     d = (double) rand() / ((double) RAND_MAX + 1);
     return (low + d * (high - low));
 }
@@ -70,4 +77,13 @@ double RandomReal(double low, double high)
 bool RandomChance(double p)
 {
     return (RandomReal(0, 1) < p);
+}
+
+/**
+ * @brief Set the Inhanced Random object
+ * get one from twice excution of rand()
+ */
+void SetInhancedRandom(bool flag)
+{
+    randTwice = TRUE;
 }

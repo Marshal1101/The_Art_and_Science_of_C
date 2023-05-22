@@ -50,7 +50,16 @@ double RandomReal(double low, double high);
 * 0 (meaning never) and 1 (meaning always). For example, calling 
 * RandomChance(.30) returns TRUE 30 percent of the time.
 */
-
 bool RandomChance(double p);
+
+/**
+ * @brief Set the Inhanced Random object
+ * Usage; SetInhancedRandom(TRUE);
+ * --------------------------------------
+ * it's to return more randomized values for frequent cases
+ */
+void SetInhancedRandom(bool flag);
+
+
 
 #endif
