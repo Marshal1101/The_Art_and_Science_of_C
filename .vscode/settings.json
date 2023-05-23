@@ -23,6 +23,9 @@
         "system_error": "c",
         "typeinfo": "c",
         "ctype.h": "c",
-        "scanner.h": "c"
+        "scanner.h": "c",
+        "malloc.h": "c",
+        "random.h": "c",
+        "myalloc.h": "c"
     }
 }

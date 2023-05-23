@@ -21,7 +21,7 @@
 
 void exe01(void);
 void exe02(void);
-void exe05(void);
+void exe06(void);
 void exe07(void);
 static int GetIntegerArray(int array[], int max, int sentinel);
 static void GiveInstrucitons(void);
@@ -73,7 +73,7 @@ void exe02(void)
     printf("the mean point is %g\n", (total - maxp - minp) / 5.0);
 }
 
-void exe05(void)
+void exe06(void)
 {
     int i, j, pcnt;
     int numArr[101];
