@@ -37,6 +37,9 @@ int main()
     printf("The standard deviation score is %.2f\n", StandardDeviation(gymnasticScores, Njudges));
     printf("The median score is %.2f\n", Median(gymnasticScores, Njudges));
     printf("The mod score is %.2f\n", Mode(gymnasticScores, Njudges));
+    // for (i = 0; i < Njudges; i++) {
+    //     printf("%.2f ", gymnasticScores[i]);
+    // }
 }
 
 double Mean(double array[], int n)
