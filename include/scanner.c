@@ -5,9 +5,10 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 
 #include "genlib.h"
-#include "strlib.h"
+// #include "strlib.h"
 #include "scanner.h"
 
 /**
@@ -25,6 +26,14 @@ static bool uppercaseFlag;
 static bool onlywordFlag;
 
 /**
+ * Private funtions
+ * ----------------
+ * returns a string with UpperCase
+ */
+static char *ConvertToUpperCase(char *s);
+static char *SubString(char *s, int p1, int p2);
+
+/**
  * Function: InitScanner
  * ---------------------
  * All this function has to do is initialize the private
@@ -33,7 +42,7 @@ static bool onlywordFlag;
 void InitScanner(string line)
 {
     buffer = line;
-    buflen = StringLength(line);
+    buflen = strlen(line);
     cpos = 0;
     uppercaseFlag = FALSE;
     onlywordFlag = FALSE;
@@ -52,20 +61,23 @@ void InitScanner(string line)
 */
 string GetNextToken(void)
 {
-    char ch;
+    char ch, *rp;
     int start;
 
     if (cpos >= buflen) Error("No more tokens");
     if (onlywordFlag) {
-        while (cpos < buflen && isspace(IthChar(buffer, cpos))) cpos++;
+        while (cpos < buflen && isspace(*(buffer + cpos))) cpos++;
     }
-    ch = IthChar(buffer, cpos);
+    ch = *(buffer + cpos);
     if (!isalnum(ch)) {
         cpos++;
-        return CharToString(ch);
+        rp = (char *) malloc(2);
+        *rp = ch;
+        *(rp + 1) = '\0';
+        return rp;
     } else {
         start = cpos;
-        while (cpos < buflen && isalnum(IthChar(buffer, cpos))) {
+        while (cpos < buflen && isalnum(*(buffer + cpos))) {
             cpos++;
         }
         return (
@@ -109,4 +121,48 @@ void ReturnUppercaseTokens(bool flag)
 void ReturnOnlyWords(bool flag)
 {
     onlywordFlag = flag;
+}
+
+static char *ConvertToUpperCase(char *s)
+{
+    int i, len;
+    char *cp, *rp;
+
+    len = strlen(s);
+    rp = (char *) malloc(len + 1);
+    if (rp == NULL) Error("ConvertToUpperCase memery error.");
+    i = 0;
+    for (cp = s; *cp; cp++) {
+        if (isalpha(*cp)) {
+            *(rp + i++) = toupper(*cp);
+        }
+        else {
+            *(rp + i++) = *cp;
+        }
+    }
+    *(rp + i) = '\0';
+    return rp;
+}
+
+static char *SubString(char *s, int p1, int p2)
+{
+    char *rp;
+    int i, len;
+
+    len = strlen(s);
+    if (p1 < 0) p1 = 0;
+    if (p2 > len - 1) p2 = len - 1;
+    if (p1 > p2) {
+        rp = (char *) malloc(1);
+        if (rp == NULL) Error("SubString memery error.");
+        *rp = '\0';
+        return rp;
+    }
+    rp = (char *) malloc(p2 - p1 + 2);
+    if (rp == NULL) Error("SubString memery error.");
+    for (i = 0; i <= p2 - p1; i++) {
+        *(rp + i) = *(s + p1 + i);
+    }
+    *(rp + i) = '\0';
+    return rp;
 }
