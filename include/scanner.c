@@ -23,7 +23,9 @@ static string buffer;
 static int buflen;
 static int cpos;
 static bool uppercaseFlag;
+static bool lowercaseFlag;
 static bool onlywordFlag;
+static bool withoutSpaceFlag;
 
 /**
  * Private funtions
@@ -31,6 +33,7 @@ static bool onlywordFlag;
  * returns a string with UpperCase
  */
 static char *ConvertToUpperCase(char *s);
+static char *ConvertToLowerCase(char *s);
 static char *SubString(char *s, int p1, int p2);
 
 /**
@@ -45,7 +48,9 @@ void InitScanner(string line)
     buflen = strlen(line);
     cpos = 0;
     uppercaseFlag = FALSE;
+    lowercaseFlag = FALSE;
     onlywordFlag = FALSE;
+    withoutSpaceFlag = FALSE;
 }
 
 /*
@@ -62,12 +67,11 @@ void InitScanner(string line)
 string GetNextToken(void)
 {
     char ch, *rp;
-    int start;
+    int start, rpos;
 
     if (cpos >= buflen) Error("No more tokens");
-    if (onlywordFlag) {
-        while (cpos < buflen && isspace(*(buffer + cpos))) cpos++;
-    }
+    if (onlywordFlag) while (cpos < buflen && !isalnum(*(buffer + cpos))) cpos++;
+    if (withoutSpaceFlag) while (cpos < buflen && isspace(*(buffer + cpos))) cpos++;
     ch = *(buffer + cpos);
     if (!isalnum(ch)) {
         cpos++;
@@ -77,13 +81,24 @@ string GetNextToken(void)
         return rp;
     } else {
         start = cpos;
-        while (cpos < buflen && isalnum(*(buffer + cpos))) {
-            cpos++;
+        if (withoutSpaceFlag) {
+            while (cpos < buflen && !isspace(*(buffer + cpos))) {
+                cpos++;
+            }
+        } else {
+            while (cpos < buflen && isalnum(*(buffer + cpos))) {
+                cpos++;
+            }
         }
+        rpos = cpos - 1;
+        if (onlywordFlag) while (cpos < buflen && !isalnum(*(buffer + cpos))) cpos++;
+        if (withoutSpaceFlag) while (cpos < buflen && isspace(*(buffer + cpos))) cpos++;
         return (
             uppercaseFlag ?
-            ConvertToUpperCase(SubString(buffer, start, cpos -1))
-            : SubString(buffer, start, cpos -1)
+            ConvertToUpperCase(SubString(buffer, start, rpos))
+            : (lowercaseFlag ?
+            ConvertToLowerCase(SubString(buffer, start, rpos))
+            : SubString(buffer, start, rpos))
         );
     }
 }
@@ -113,15 +128,41 @@ void ReturnUppercaseTokens(bool flag)
 }
 
 /**
+ * Function: ReturnLowercaseTokens
+ * ----------------------------------
+ * this function controls LowercaseFlag for GetNextToken
+ * to return Lowercase tokens.
+ */
+void ReturnLowercaseTokens(bool flag)
+{
+    lowercaseFlag = flag;
+}
+
+/**
  * Function: ReturnOnlyWords
  * ----------------------------
  * this function controls onlywordFlag for GetNextToken
- * to return only words except for spaces.
+ * to return only words with alphabets and numbers.
  */
 void ReturnOnlyWords(bool flag)
 {
     onlywordFlag = flag;
+    withoutSpaceFlag = !flag;
 }
+
+/**
+ * Function: ReturnWithoutSpace
+ * ----------------------------
+ * this function controls onlywordFlag for GetNextToken
+ * to return words except for spaces.
+ */
+void ReturnWithoutSpace(bool flag)
+{
+    withoutSpaceFlag = flag;
+    onlywordFlag = !flag;
+}
+
+
 
 static char *ConvertToUpperCase(char *s)
 {
@@ -135,6 +176,27 @@ static char *ConvertToUpperCase(char *s)
     for (cp = s; *cp; cp++) {
         if (isalpha(*cp)) {
             *(rp + i++) = toupper(*cp);
+        }
+        else {
+            *(rp + i++) = *cp;
+        }
+    }
+    *(rp + i) = '\0';
+    return rp;
+}
+
+static char *ConvertToLowerCase(char *s)
+{
+    int i, len;
+    char *cp, *rp;
+
+    len = strlen(s);
+    rp = (char *) malloc(len + 1);
+    if (rp == NULL) Error("ConvertToLowerCase memery error.");
+    i = 0;
+    for (cp = s; *cp; cp++) {
+        if (isalpha(*cp)) {
+            *(rp + i++) = tolower(*cp);
         }
         else {
             *(rp + i++) = *cp;

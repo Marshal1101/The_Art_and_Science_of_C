@@ -5,6 +5,10 @@
  * @date 2023-05-23
  */
 
+#ifndef _myalloc_h
+#define _myalloc_h
+
+
 #include "genlib.h"
 
 /**
@@ -19,3 +23,6 @@
  * @return void* 
  */
 void *MyGetBlock(int nBytes);
+
+
+#endif

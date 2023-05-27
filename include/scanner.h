@@ -80,6 +80,15 @@ bool AtEndOfLine(void);
 void ReturnUppercaseTokens(bool flag);
 
 /**
+ * Function: ReturnLowercaseTokens
+ * Usage: ReturnLowercaseTokens(TRUE)
+ * ----------------------------------
+ * if the argument is TRUE,
+ * then GetNextToken returns Lowercase Tokens.
+ */
+void ReturnLowercaseTokens(bool flag);
+
+/**
  * Function: ReturnOnlyWords
  * Usage: ReturnOnlyWords(TRUE)
  * ----------------------------
@@ -87,6 +96,15 @@ void ReturnUppercaseTokens(bool flag);
  * then GetNextToken returns only word tokens.
  */
 void ReturnOnlyWords(bool flag);
+
+/**
+ * Function: ReturnWithoutSpace
+ * Usage: ReturnWithoutSpace(TRUE)
+ * ----------------------------
+ * if the argument is TRUE,
+ * then GetNextToken returns without spaces.
+ */
+void ReturnWithoutSpace(bool flag);
 
 
 #endif

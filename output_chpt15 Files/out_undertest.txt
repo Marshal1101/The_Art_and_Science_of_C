@@ -1,0 +1,4 @@
+According to the table on page 53 of _T_h_e_ _C
+_P_r_o_g_r_a_m_m_i_n_g_ _L_a_n_g_u_a_g_e by Kernighhan and Ritchie,
+the operator * has a _h_i_g_h_e_r precedence than +,
+and the precedence of * is equal to that of /.
