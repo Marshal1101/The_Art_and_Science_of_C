@@ -1,0 +1,66 @@
+CC = gcc
+
+# C 컴파일러 옵션
+CFLAGS = -Wall
+
+# 링커 옵션
+LDFLAGS =
+
+# 헤더파일 경로
+INCLUDE = -Iinclude/
+
+# 소스 파일 디렉토리
+SRC_DIR = ./include
+
+# 오브젝트 파일 디렉토리
+OBJ_DIR = ./include
+
+# OBJS = genlib.o random.o simpio.o strlib.o caltools.o scanner.o labelseq.o fill.o hist.o sort.o myalloc.o readfile.o
+
+TARGET = teach
+
+# Make 할 소스 파일들
+# wildcard 로 SRC_DIR 에서 *.cc 로 된 파일들 목록을 뽑아낸 뒤에
+# notdir 로 파일 이름만 뽑아낸다.
+# (e.g SRCS 는 foo.cc bar.cc main.cc 가 된다.)
+SRCS = $(notdir $(wildcard $(SRC_DIR)/*.c))
+# 먼저 SRC_DIR 안에 있는 모든 파일들을 SRCS 로 읽어들이려 하고 있습니다.
+# wildcard 는 함수로 해당 조건에 맞는 파일들을 뽑아내게 되는데,
+# 예를 들어서 foo.cc, bar.cc, main.cc 가 있을 경우
+# $(wildcard $(SRC_DIR)/*.cc) 의 실행 결과는
+# ./src/foo.cc ./src/bar.cc ./src/main.cc 가 될 것입니다.
+# 여기서 우리는 foo.cc bar.cc main.cc 로 깔끔하게 경로를 제외한
+# 파일 이름만 뽑아내기 위해 notdir 함수를 사용합니다.
+# notdir 은 앞에 오는 경로를 날려버리고 파일 이름만 깔끔하게 추출해줍니다.
+OBJS = $(SRCS:.c=.o)
+# 따라서 이 부분에서 OBJS 는 foo.o bar.o main.o 가 될 것입니다.
+# 이제 이 OBJS 를 바탕으로 실제 .o 파일들의 경로를 만들어내고 싶습니다.
+# 이를 위해서는 이들 파일 이름 앞에 $(OBJ_DIR)/ 을 붙여줘야 겠지요.
+# 이를 위해선 patsubst 함수를 사용하면 됩니다.
+
+
+# OBJS 안의 object 파일들 이름 앞에 $(OBJ_DIR)/ 을 붙인다.
+OBJECTS = $(patsubst %.o,$(OBJ_DIR)/%.o,$(OBJS))
+# patsubst 함수는 $(patsubst 패턴,치환 후 형태,변수) 의 같은 꼴로 사용합니다.
+# 따라서 위 경우 $(OBJS) 안에 있는 모든 %.o 패턴을 $(OBJ_DIR)/%.o 로 치환해라
+# 라는 의미가 될 것입니다. 아무튼 덕분에 OBJECTS 에는
+# 이제 ./obj/foo.o ./obj/bar.o ./obj/main.o 가 들어가게 됩니다.
+
+DEPS = $(OBJECTS:.o=.d)
+
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ -MD $(LDFLAGS)
+
+$(TARGET).o : $(TARGET).c
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ -MD $(LDFLAGS)
+
+$(TARGET) : $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) $(TARGET).o -o $(TARGET) $(LDFLAGS) $(INCLUDE) 
+
+all: teach
+
+.PHONY: clean
+clean:
+	rm -f $(OBJS) $(TARGET).o
+
+-include $(OBJS:.o=.d)

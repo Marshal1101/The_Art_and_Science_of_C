@@ -154,6 +154,6 @@ void FreeBlock(void *ptr);
 * After printing the error message, the program terminates.
 */
 
-void Error (string msg, ...);
+void Error(string msg, ...);
 
 #endif
