@@ -22,9 +22,14 @@
 * In most cases, the array will have a larger allocated
 * size.
 */
-
 void SortIntegerArray(int array[], int n);
+void SelectionSort(int array[], int n);
+void MergeSort(int array[], int n);
+
+/* string lexicographic sort */
 void Alphabetize(string array[], int n);
+
+/* Sort Real array */
 void SortRealArray(double array[], int n);
 
 #endif

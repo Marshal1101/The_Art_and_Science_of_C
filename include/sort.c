@@ -10,7 +10,12 @@
 #include "strlib.h"
 #include "sort.h"
 
+/* sorttest.c 테스트에서 선택정렬보다 합병정렬이 빨라지는 평균 요소 개수 112 */
+#define SizeUseMergeSort    112
+
 /* Private function prototypes */
+
+static void Merge(int array[], int arr1[], int n1, int arr2[], int n2);
 static int FindSmallestInteger(int array[], int low, int high);
 static void SwapIntegerElements(int array[], int p1, int p2);
 static int FindMinLexicoElements(string array[], int low, int high);
@@ -33,13 +38,62 @@ static void SwapRealElements(double array[], int p1, int p2);
 * switching teh elements indicated by your left and right
 * hands.
 */
-void SortIntegerArray(int array[], int n)
+
+void SortIntegerArray(int array[], int n) {
+    /* SizeUseMergeSort 미만 시에 선택정렬, 이상 시에 합병정렬 선택 */
+    if (n < SizeUseMergeSort) {
+        SelectionSort(array, n);
+    } else {
+        MergeSort(array, n);
+    }
+
+}
+
+/* Selection Sort */
+void SelectionSort(int array[], int n)
 {
     int lh, rh;
     for (lh = 0; lh < n; lh++) {
         rh = FindSmallestInteger(array, lh, n-1);
         SwapIntegerElements(array, lh, rh);
     }
+}
+
+/* Merge Sort */
+void MergeSort(int array[], int n)
+{
+    int i, n1, n2;
+    int *arr1, *arr2;
+
+    if (n > 1) {
+        n1 = n / 2;
+        n2 = n - n1;
+        arr1 = NewArray(n1, int);
+        arr2 = NewArray(n2, int);
+        for (i = 0; i < n1; i++) arr1[i] = array[i];
+        for (i = 0; i < n2; i++) arr2[i] = array[n1 + i];
+        MergeSort(arr1, n1);
+        MergeSort(arr2, n2);
+        Merge(array, arr1, n1, arr2, n2);
+        FreeBlock(arr1);
+        FreeBlock(arr2);
+    }
+}
+
+static void Merge(int array[], int arr1[], int n1, int arr2[], int n2)
+{
+    int p, p1, p2;
+
+    p = p1 = p2 = 0;
+    while (p1 < n1 && p2 < n2) {
+        if (arr1[p1] < arr2[p2]) {
+            array[p++] = arr1[p1++];
+        } else {
+            array[p++] = arr2[p2++];
+        }
+    }
+    while (p1 < n1) array[p++] = arr1[p1++];
+    while (p2 < n2) array[p++] = arr2[p2++];
 }
 
 /*
