@@ -4,6 +4,8 @@
  * @date 2023-05-29
  */
 
+#ifndef _rational_h
+#define _rational_h
 #include "genlib.h"
 
 /**
@@ -64,3 +66,6 @@ rationalT GetStringToRational(string r);
  * @param r 
  */
 void PrintRational(rationalT r);
+
+
+#endif
