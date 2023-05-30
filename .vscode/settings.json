@@ -60,6 +60,8 @@
         "queue": "c",
         "streambuf": "c",
         "stdio.h": "c",
-        "rational.h": "c"
+        "rational.h": "c",
+        "queue.h": "c",
+        "sort.h": "c"
     }
 }
