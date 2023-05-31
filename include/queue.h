@@ -41,7 +41,7 @@ void FreeQueue(queueADT queue);
 * ----------------------------------------
 * This function adds obj to the end of the queue.
 */
-queueADT Enqueue(queueADT queue, void *obj);
+void Enqueue(queueADT queue, void *obj);
 
 /*
 * Function: Dequeue

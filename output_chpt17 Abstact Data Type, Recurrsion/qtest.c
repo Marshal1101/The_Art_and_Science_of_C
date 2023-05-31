@@ -29,7 +29,7 @@ int main(void)
         if (com == 0) {
             while (!AtEndOfLine()) {
                 token = GetNextToken();
-                q = Enqueue(q, token);
+                Enqueue(q, token);
                 printf("Enqueue %s\n", token);
             }
         } else {

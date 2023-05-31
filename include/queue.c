@@ -21,7 +21,7 @@
 static int ext = 1;
 
 
-static queueADT ExtendQueue(queueADT queue);
+static void ExtendQueue(queueADT queue);
 static queueADT ExtendNewQueue(queueADT queue);
 static string Copy(void *vp);
 
@@ -74,23 +74,15 @@ void FreeQueue(queueADT queue)
 * ---------------------------
 * This function adds a new element to the queue.
 */
-queueADT Enqueue(queueADT queue, void *obj)
+void Enqueue(queueADT queue, void *obj)
 {
     if (queue->len == queue->maxSize) {
-        queueADT newq;
-        newq = ExtendQueue(queue);
-        FreeQueue(queue);
-        // printf("new queue maxSize: %d\n", newq->maxSize);
-        newq->array[newq->tail] = obj;
-        newq->tail = (newq->tail + 1) % newq->maxSize;
-        newq->len++;
-        return newq;
+        ExtendQueue(queue);
     }
     queue->array[queue->tail] = obj;
     queue->tail = (queue->tail + 1) % queue->maxSize;
     queue->len++;
     // ShowQueueElement(queue);
-    return queue;
 }
 
 /*
@@ -134,7 +126,7 @@ void ShowQueueElement(queueADT queue)
     printf("MaxSize:%d, len:%d, head:%d tail:%d\n", queue->maxSize, queue->len, queue->head, queue->tail);
 }
 
-static queueADT ExtendQueue(queueADT queue)
+static void ExtendQueue(queueADT queue)
 {
     queueADT newq;
     int i, head, tail, size;
@@ -147,10 +139,11 @@ static queueADT ExtendQueue(queueADT queue)
     for (i = 0; i < size; i++) {
         newq->array[i] = queue->array[(head + i) % size];
     }
-    newq->head = 0;
-    newq->tail = size;
-    newq->len = queue->len;
-    return newq;
+    FreeBlock(queue->array);
+    queue->array = newq->array;
+    queue->maxSize = newq->maxSize;
+    queue->head = 0;
+    queue->tail = size;
 }
 
 static queueADT ExtendNewQueue(queueADT queue)
