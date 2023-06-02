@@ -23,8 +23,14 @@
 * size.
 */
 void SortIntegerArray(int array[], int n);
-void SelectionSort(int array[], int n);
+void StraightSelectionSort(int array[], int n);
 void MergeSort(int array[], int n);
+void StraightInsertionSort(int array[], int n);
+void BinaryInsertionSort(int array[], int n);
+void ShellSort(int array[], int n);
+void QuickSort(int array[], int left, int right);
+void HeapSort(int array[], int n);
+void Fsort(int array[], int n, int min, int max);
 
 /* string lexicographic sort */
 void Alphabetize(string array[], int n);
