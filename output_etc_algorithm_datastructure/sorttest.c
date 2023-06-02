@@ -27,6 +27,10 @@ int main(void) {
     }
     printf("mean size: %d", total/MaxTest);
 
+    // size = TimetestSelVsMerge();
+    // total += size;
+    // printf("mean size: %d", total/MaxTest);
+
     return 0;
 }
 
@@ -51,16 +55,18 @@ int TimetestSelVsMerge(void)
             i++;
         }
         clock_t s1s = clock();
-        BinaryInsertionSort(arr1, size);
+        StraightInsertionSort(arr2, size);
         clock_t s1e = clock();
         clock_t s2s = clock();
-        MergeSort(arr2, size);
+        Fsort(arr1, size, 0, MaxSize);
         clock_t s2e = clock();
 
-        if ((t1 = s1e - s1s) > (t2 = s2e - s2e)) break;
+        t1 = s1e - s1s;
+        t2 = s2e - s2s;
+        if (t1 > t2) break;
+        // printf("size: %d, s1: %13llf, s2: %13llf\n", size, t1/CLOCKS_PER_SEC, t2/CLOCKS_PER_SEC);
         size++;
     }
-    // printf("s1: %13llf, s2: %13llf\n", t1/CLOCKS_PER_SEC, t2/CLOCKS_PER_SEC);
     // printf("sort1 became slower than sort2 at n size = %d\n", size);
 
     return size;

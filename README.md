@@ -2,8 +2,8 @@
 ```cmd
 // path: ./include (at this)
 
-gcc -c genlib.c random.c simpio.c strlib.c caltools.c scanner.c labelseq.c fill.c hist.c sort.c myalloc.c readfile.c rational.c queue.c
-ar r libmy.a genlib.o random.o simpio.o strlib.o caltools.o scanner.o labelseq.o fill.o hist.o sort.o myalloc.o readfile.o rational.o queue.o
+gcc -c genlib.c random.c simpio.c strlib.c caltools.c scanner.c labelseq.c fill.c hist.c sort.c myalloc.c readfile.c rational.c queue.c stack.c
+ar r libmy.a genlib.o random.o simpio.o strlib.o caltools.o scanner.o labelseq.o fill.o hist.o sort.o myalloc.o readfile.o rational.o queue.o stack.o
 ar s libmy.a
 ```
 
